@@ -15,9 +15,9 @@ SVOLGIMENTO
 //Element
 const title = document.getElementById('title');
 const startButton = document.getElementById('start');
+startButton.innerHTML = 'Start Game';
 
 //Data
-let counterSec = 5;
 const randomNum = [];
 const selectedNum = [];
 
@@ -33,14 +33,22 @@ function uniqueRandomNumGenerator(array) {
     randomNumber = randomNumGenerator();
   } while (array.includes(randomNumber)); // Verifica se il numero è già presente nell'array
   return randomNumber;
+  
 }
-//FOR per inserire i numeri generati nell'array
-for (let i = 0; i < 5; i++) {
-  const randomNumber = randomNumGenerator();
+//WHILE per inserire i numeri generati in uno span
+let i = 0;
+while (i < 5) {
+  const randomNumber = uniqueRandomNumGenerator(randomNum);
   randomNum.push(randomNumber);
-}
-console.log(randomNum); // Stampa l'array con i numeri casuali generati
+  const spanElement = document.createElement('span');
+  spanElement.textContent = randomNumber;//Assegno allo span il numero 
+  title.appendChild(spanElement); // Aggiungi lo span al titolo
 
-//Random number Array
+  // Aggiungi uno spazio vuoto tra i numeri (tranne dopo l'ultimo numero)
+  if (i < 4) {
+    const spaceElement = document.createTextNode(' ');
+    title.appendChild(spaceElement);
+  }
+  i++;
+} // Stampo l'array con i numeri casuali generati
 
-//
