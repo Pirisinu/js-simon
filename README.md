@@ -15,11 +15,12 @@ Dopo che sono stati inseriti i 5 numeri, il software dice quanti e quali dei num
 1. Creo il mio contatore dei secondi
 1. Creo un array vuoto che contenga i numeri generati in futuro
 1. Creo un array vuoto che andra a contenere i numeri scelti dall'utente
-1. Genero costante che
+1. Genero funzione che
     - 1] Mi crea 5 numeri randomici
     - 2] Una funzione di avvio gioco
     - 3] Vado a creare una funzione che faccia sparire gli elementi un secondo alla volta <br/>
          (interna alla funzione 2])
+    - 4] Una funzione di reset
 1. 
 1. 
 1. 
