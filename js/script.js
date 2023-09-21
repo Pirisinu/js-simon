@@ -20,6 +20,7 @@ startButton.innerHTML = 'Start Game';
 //Data
 const randomNum = [];
 const selectedNum = [];
+let spanElements = [];
 
 /* RANDOM NUM */
 //FUNCTION Random number
@@ -52,3 +53,28 @@ while (i < 5) {
   i++;
 } // Stampo l'array con i numeri casuali generati
 
+/* TIMING FUNCTION */
+// Funzione per nascondere uno span al secondo
+function hideOneSpanPerSecond() {
+  let spanIndex = 0; // Inizia con il primo span
+
+  const intervalId = setInterval(function() {
+    // Verifica se abbiamo raggiunto l'ultimo span
+    if (spanIndex >= spanElements.length) {
+      clearInterval(intervalId); // Ferma l'intervallo se siamo arrivati all'ultimo span
+      return;
+    }
+
+    const spanToHide = spanElements[spanIndex];
+    spanToHide.style.visibility = 'hidden'; // Nascondo lo span corrente
+    spanIndex++; 
+  }, 1000); // Nasconde uno span ogni secondo (1000 millisecondi)
+}
+
+// Aggiungi un gestore di eventi al pulsante di avvio del gioco
+startButton.addEventListener('click', function() {
+  hideOneSpanPerSecond(); // Avvia la funzione per nascondere gli span
+});
+
+// Memorizza gli elementi span in un array
+spanElements = Array.from(title.querySelectorAll('span'));
