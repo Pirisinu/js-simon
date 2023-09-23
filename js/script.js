@@ -21,61 +21,89 @@ title.innerHTML = 'Premi il pulsante invio per giocare.'
 startButton.innerHTML = 'Start Game';
 
 //Data
-const randomNum = [];
+let randomNum = [];
 const selectedNum = [];
 let spanElements = [];
 
-/* RANDOM NUM */
-//FUNCTION Random number
+/* INIT GAME */
+
+startButton.addEventListener('click', function() {
+  //WHILE per inserire i numeri generati in uno span
+  let i = 0;
+  while (i < 5) {
+    const randomNumber = uniqueRandomNumGenerator(randomNum);
+    randomNum.push(randomNumber);
+    const spanElement = document.createElement('span');
+    spanElement.textContent = randomNumber;//Assegno allo span il numero 
+    numberContainer.appendChild(spanElement); // Aggiungi lo span al titolo
+    if (i < 4) {
+      const spaceElement = document.createTextNode(' ');
+      numberContainer.appendChild(spaceElement);
+    }
+    i++;
+  }
+  console.log(randomNum)
+  title.innerHTML = 'Memorizza i numeri qui sotto'
+  hideOneSpanPerSecond()
+  promptUserNumber()
+  randomNum = []
+  spanElements = Array.from(numberContainer.querySelectorAll('span'));
+});
+
+/* FUNCTION */
+//Random number
 function randomNumGenerator() {
   return Math.floor(Math.random() * 100 + 1)
 }
-//Function control Random number
+//Control Random number
 function uniqueRandomNumGenerator(array) {
   let randomNumber;
   do {
     randomNumber = randomNumGenerator();
   } while (array.includes(randomNumber)); // Verifica se il numero è già presente nell'array
   return randomNumber;
-  
 }
-//WHILE per inserire i numeri generati in uno span
-let i = 0;
-while (i < 5) {
-  const randomNumber = uniqueRandomNumGenerator(randomNum);
-  randomNum.push(randomNumber);
-  const spanElement = document.createElement('span');
-  spanElement.textContent = randomNumber;//Assegno allo span il numero 
-  numberContainer.appendChild(spanElement); // Aggiungi lo span al titolo
 
-  // Aggiungi uno spazio vuoto tra i numeri (tranne dopo l'ultimo numero)
-  if (i < 4) {
-    const spaceElement = document.createTextNode(' ');
-    numberContainer.appendChild(spaceElement);
-  }
-  i++;
-} // Stampo l'array con i numeri casuali generati
-
-/* TIMING FUNCTION */
-// Funzione per nascondere uno span al secondo
+//Timing function 
 function hideOneSpanPerSecond() {
-  let spanIndex = 0; // Inizia con il primo span
-  const intervalId = setInterval(function() {
-    // Verifica se abbiamo raggiunto l'ultimo span
-    if (spanIndex >= spanElements.length) {
-      clearInterval(intervalId); // Ferma l'intervallo se siamo arrivati all'ultimo span
-      return;
-    }
-    const spanToHide = spanElements[spanIndex];
-    spanToHide.style.visibility = 'hidden';
-    spanIndex++; 
-  }, 1000);
+  startButton.style.visibility='hidden';
+  let spanIndex = 0;
+  setInterval(function() {
+    const intervalId = setInterval(function() {
+      // Verifica se abbiamo raggiunto l'ultimo span
+      if (spanIndex >= spanElements.length) {
+        clearInterval(intervalId); // Ferma l'intervallo se siamo arrivati all'ultimo span
+        return;
+      }
+      const spanToHide = spanElements[spanIndex];
+      spanToHide.style.visibility = 'hidden';
+      spanIndex++;
+    }, 1000);// Faccio sparire un numero al secondo
+  }, 5000)//Aspetto 5 secondi prima di far sparire i numeri
 }
-
-// Aggiungi un gestore di eventi al pulsante di avvio del gioco
-startButton.addEventListener('click', function() {
-  hideOneSpanPerSecond(); // Avvia la funzione per nascondere gli span
-});
-
-// Memorizza gli elementi span in un array
-spanElements = Array.from(numberContainer.querySelectorAll('span'));
+//
+function promptUserNumber() {
+  const delayPrompt = setInterval(function() {
+    for (let i = 0; i < spanElements.length; i++) {
+      const userNumber = parseInt(prompt("INSERISCI I NUMERI PRIMA ELENCATI"));
+      selectedNum.push(userNumber);
+      if (selectedNum.length === spanElements.length) {
+        clearInterval(delayPrompt);
+        title.innerHTML = `Hai indovinato ${scoreObtained(randomNum, selectedNum)} numeri.`;
+        startButton.innerHTML = 'Rigioca';
+        startButton.style.visibility = 'visible';
+        numberContainer.innerHTML= ''
+      }
+    }
+  }, 11000);
+}
+//
+function scoreObtained(array1, array2) {
+  let score = 0;
+  for (const numero of array1) {
+    if (array2.includes(numero)) {
+      score++;
+    }
+  }
+  return score;
+}
