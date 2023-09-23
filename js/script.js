@@ -14,7 +14,10 @@ SVOLGIMENTO
 */
 //Element
 const title = document.getElementById('title');
+const numberContainer = document.getElementById('number-container');
 const startButton = document.getElementById('start');
+//
+title.innerHTML = 'Premi il pulsante invio per giocare.'
 startButton.innerHTML = 'Start Game';
 
 //Data
@@ -43,12 +46,12 @@ while (i < 5) {
   randomNum.push(randomNumber);
   const spanElement = document.createElement('span');
   spanElement.textContent = randomNumber;//Assegno allo span il numero 
-  title.appendChild(spanElement); // Aggiungi lo span al titolo
+  numberContainer.appendChild(spanElement); // Aggiungi lo span al titolo
 
   // Aggiungi uno spazio vuoto tra i numeri (tranne dopo l'ultimo numero)
   if (i < 4) {
     const spaceElement = document.createTextNode(' ');
-    title.appendChild(spaceElement);
+    numberContainer.appendChild(spaceElement);
   }
   i++;
 } // Stampo l'array con i numeri casuali generati
@@ -57,18 +60,16 @@ while (i < 5) {
 // Funzione per nascondere uno span al secondo
 function hideOneSpanPerSecond() {
   let spanIndex = 0; // Inizia con il primo span
-
   const intervalId = setInterval(function() {
     // Verifica se abbiamo raggiunto l'ultimo span
     if (spanIndex >= spanElements.length) {
       clearInterval(intervalId); // Ferma l'intervallo se siamo arrivati all'ultimo span
       return;
     }
-
     const spanToHide = spanElements[spanIndex];
-    spanToHide.style.visibility = 'hidden'; // Nascondo lo span corrente
+    spanToHide.style.visibility = 'hidden';
     spanIndex++; 
-  }, 1000); // Nasconde uno span ogni secondo (1000 millisecondi)
+  }, 1000);
 }
 
 // Aggiungi un gestore di eventi al pulsante di avvio del gioco
@@ -77,4 +78,4 @@ startButton.addEventListener('click', function() {
 });
 
 // Memorizza gli elementi span in un array
-spanElements = Array.from(title.querySelectorAll('span'));
+spanElements = Array.from(numberContainer.querySelectorAll('span'));

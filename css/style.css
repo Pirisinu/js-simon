@@ -1,0 +1,35 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body{
+   background-color: darkslategray;
+   text-align: center;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   height: 100vh;
+}
+.container{
+  max-width: 800px;
+  height: 400px;
+  background-color: darkgoldenrod;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  padding: 40px;
+}
+#title{
+  color: white;
+}
+#number-container{
+  color: white;
+  font-size: 2.4rem;
+}
+#start{
+  width: 30%;
+  height: 35px;
+  font-size: 1.2rem;
+  margin: 0 auto;
+}
