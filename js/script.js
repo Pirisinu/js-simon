@@ -87,7 +87,7 @@ function promptUserNumber() {
     for (let i = 0; i < spanElements.length; i++) {
       const userNumber = parseInt(prompt("INSERISCI I NUMERI PRIMA ELENCATI"));
       selectedNum.push(userNumber);
-      if (selectedNum.length === spanElements.length) {
+      if (selectedNum.length === spanElements.length || selectedNum.length === 0) {
         clearInterval(delayPrompt);
         title.innerHTML = `Hai indovinato ${scoreObtained(randomNum, selectedNum)} numeri.`;
         startButton.innerHTML = 'Rigioca';
